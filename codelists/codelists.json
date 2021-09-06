@@ -1,3 +1,10 @@
 {
-  "files": {}
+  "files": {
+    "opensafely-second-generation-antipsychotics-excluding-long-acting-injections.csv": {
+      "id": "opensafely/second-generation-antipsychotics-excluding-long-acting-injections/6c7c3c11",
+      "url": "https://codelists.opensafely.org/codelist/opensafely/second-generation-antipsychotics-excluding-long-acting-injections/6c7c3c11/",
+      "downloaded_at": "2021-09-06 09:43:33.731839Z",
+      "sha": "2330a3239958a1e120352e26fa7126e71d5dfdba"
+    }
+  }
 }
