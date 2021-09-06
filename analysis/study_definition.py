@@ -1,4 +1,4 @@
-from cohortextractor import StudyDefinition, patients, codelist, codelist_from_csv  # NOQA
+from cohortextractor import StudyDefinition, measure, patients, codelist, codelist_from_csv  # NOQA
 
 from codelists import *
 
@@ -9,17 +9,33 @@ study = StudyDefinition(
         "incidence": 0.5,
     },
     index_date="2020-01-01",
-    population=patients.registered_with_one_practice_between(
-        "2019-02-01", "2020-02-01"
+    population=patients.age_as_of(
+        "index_date",
+        return_expectations={
+            "rate" : "universal",
+            "int" : {"distribution" : "population_ages"}
+        }
     ),
+
+
+
+
 
 antipsychotics_prescribing = patients.with_these_medications(
     antipsychotics_sec_gen,
     returning = "binary_flag",
     find_first_match_in_period = True,
-    between = ["index_date", "index_date - 3 months"],
+    on_or_after = ["index_date"],
     return_expectations = {"incidence": 0.2}
 ),
 
-)
 
+#measures = [
+ #   Measure(
+  #      id="antipsychotic_rx_rate",
+   #     numerator="antipsychotics_prescribing",
+    #    denominator="population",
+    #),
+#]
+    
+)
