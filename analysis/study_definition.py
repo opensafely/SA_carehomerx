@@ -11,12 +11,19 @@ study = StudyDefinition(
       "incidence": 0.5,
     },
 
-    index_date="2020-01-01",
-    # population=patients.satisfying(
-      #age>="60"
-      #),
+    index_date="2019-01-01",
+    
+    population=patients.satisfying(
+      """
+        age>=60
+        AND
+        NOT has_died
+        AND
+        registered
+        """
+      ),
 
-    population=patients.all(),
+    # population=patients.all(),
     
     age=patients.age_as_of(
       "index_date",
@@ -26,8 +33,16 @@ study = StudyDefinition(
       }
       ),
 
+    has_died=patients.died_from_any_cause(
+      on_or_before = "index_date",
+      returning = "binary_flag",
+    ),
     
-      
+    registered = patients.satisfying(
+      "registered_at_start",
+      registered_at_start = patients.registered_as_of("index_date"),
+    ),
+
     antipsychotics_prescribing = patients.with_these_medications(
       antipsychotics_sec_gen,
       returning = "binary_flag",
@@ -46,6 +61,7 @@ measures = [
     numerator="antipsychotics_prescribing",
 
     denominator="population",
+    group_by="population"
 
   ),
 
