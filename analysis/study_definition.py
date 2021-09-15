@@ -47,7 +47,7 @@ study = StudyDefinition(
       antipsychotics_sec_gen,
       returning = "binary_flag",
       find_first_match_in_period = True,
-      between = ["index_date", "index_date - 3 months"],
+      between = ["index_date - 3 months", "index_date"],
       return_expectations = {"incidence": 0.2}
       ),
 )
